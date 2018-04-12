@@ -1,0 +1,11 @@
+E:\bookManagementSystem\bms_service\src\main\java\com\jim\library\user\entity\BorrowInfo.java
+E:\bookManagementSystem\bms_service\src\main\java\com\jim\library\user\entity\User.java
+E:\bookManagementSystem\bms_service\src\main\java\com\jim\library\book\service\BookService.java
+E:\bookManagementSystem\bms_service\src\main\java\com\jim\library\user\doamin\BorrowInfoBo.java
+E:\bookManagementSystem\bms_service\src\main\java\com\jim\library\book\entity\Book.java
+E:\bookManagementSystem\bms_service\src\main\java\com\jim\library\user\service\BorrowService.java
+E:\bookManagementSystem\bms_service\src\main\java\com\jim\library\book\domain\BookQueryBo.java
+E:\bookManagementSystem\bms_service\src\main\java\com\jim\library\exception\BmsException.java
+E:\bookManagementSystem\bms_service\src\main\java\com\jim\library\user\doamin\UserBo.java
+E:\bookManagementSystem\bms_service\src\main\java\com\jim\library\exception\BmsExceptionResolver.java
+E:\bookManagementSystem\bms_service\src\main\java\com\jim\library\user\service\UserService.java

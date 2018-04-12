@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jim.library.internal.book.mapper.BookMapper" >
+	
+	<sql id="query_books_where">
+		<if test="book!=null">
+			<if test="book.bookName!=null and book.bookName!=''">
+   				and	book.book_name LIKE '%${book.bookName}%'
+   			</if>
+   			<if test="book.bookClass!=null and book.bookClass!=''">
+   				and	book.book_class LIKE '%${book.bookClass}%'
+   			</if>
+   			<if test="book.author!=null and book.author!=''">
+   				and book.author LIKE '%${book.author}%'
+   			</if>
+   			<if test="book.publisher!=null and book.publisher!=''">
+   				and book.publisher LIKE '%${book.publisher}%'
+   			</if>
+   			
+   			<if test="book.publishDate!=null ">
+   				and book.publish_date LIKE '%${book.publishDate}%'
+   			</if> 
+   			<if test="book.bookAllQuan!=null">
+   				and book.book_all_quan=#{book.bookAllQuan}
+   			</if>
+   			<if test="book.bookQuan!=null">
+   				and book.book_quan=#{book.bookQuan}
+   			</if>
+   		</if>
+	</sql>
+	
+	<sql id="update_books_set">
+		<if test="book!=null">
+			<if test="book.bookName!=null and book.bookName!=''">
+   				book_name=#{book.bookName},
+   			</if>
+   			<if test="book.bookClass!=null and book.bookClass!=''">
+   				book_class=#{book.bookClass},
+   			</if>
+   			<if test="book.author!=null and book.author!=''">
+   				book.author=#{book.author},
+   			</if>
+   			<if test="book.publisher!=null and book.publisher!=''">
+   				book.publisher=#{book.publisher},
+   			</if>
+   			<if test="book.publishDate!=null ">
+   				book.publish_date=#{book.publishDate},
+   			</if> 
+   			<if test="book.bookAllQuan!=null ">
+   				book.book_all_quan=#{book.bookAllQuan},
+   			</if>
+   			<if test="book.bookQuan!=null ">
+   				book.book_quan=#{book.bookQuan},
+   			</if>
+   			<if test="book.pic!=null ">
+   				book.pic=#{book.pic},
+   			</if>
+   		</if>
+	</sql>
+	
+	<select id="findBooksList" parameterType="com.jim.library.book.domain.BookQueryBo" resultType="com.jim.library.internal.book.po.BookPo">
+		SELECT
+			book_ISBN bookISBN,
+			book_name bookName,
+			book_class bookClass,
+			author,
+			publisher,
+			publish_date publishDate,
+			book_all_quan bookAllQuan,
+			book_quan bookQuan,
+			pic
+		FROM
+			book
+		<where>
+			<include refid="query_books_where"></include>
+		</where>
+	</select>
+	
+	<select id="findBookByISBN" parameterType="com.jim.library.book.domain.BookQueryBo" resultType="com.jim.library.internal.book.po.BookPo">
+		SELECT
+			book_ISBN bookISBN,
+			book_name bookName,
+			book_class bookClass,
+			author,
+			publisher,
+			publish_date publishDate,
+			book_all_quan bookAllQuan,
+			book_quan bookQuan,
+			pic 
+		FROM
+			book 
+		WHERE
+			book_ISBN=#{book.bookISBN}
+	</select>
+	
+	<update id="updateBook" parameterType="com.jim.library.book.domain.BookQueryBo">
+		UPDATE book 
+		<set>
+			<include refid="update_books_set"></include>
+		</set>
+		WHERE book_ISBN=#{book.bookISBN}
+	</update>
+
+	<insert id="addBook" parameterType="com.jim.library.book.domain.BookQueryBo">
+	INSERT INTO book(book_ISBN,book_name,book_class,author,publisher,publish_date,book_all_quan,book_quan)
+		VALUES
+		(#{book.bookISBN},#{book.bookName},#{book.bookClass},#{book.author},#{book.publisher},#{book.publishDate},#{book.bookAllQuan},#{book.bookQuan})
+	</insert>
+	
+	<delete id="deleteBook"  parameterType="com.jim.library.book.domain.BookQueryBo" >
+		DELETE FROM book WHERE book_isbn=#{book.bookISBN}
+	</delete>
+	
+	
+</mapper>

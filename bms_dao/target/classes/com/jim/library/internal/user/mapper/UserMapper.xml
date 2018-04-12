@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jim.library.internal.user.mapper.UserMapper" >
+
+<!-- 	<resultMap type="com.jim.library.user.doamin.UserBo" id="userBoResultMap">
+		<association property="user" javaType="com.jim.library.user.entity.User">
+			<id column="user_id"  property="userId"/>
+			<result column="user_name" property="userName"/>
+			<result column="user_pwd" property="userPwd"/>
+			<result column="user_age" property="userAge"/>
+			<result column="user_sex" property="userSex"/>
+			<result column="reg_time" property="regTime"/>
+		</association>
+	</resultMap> -->
+	
+<!-- 	<resultMap type="com.jim.library.user.entity.User" id="userResultMap">
+			<id column="user_id"  property="userId"/>
+			<result column="user_name" property="userName"/>
+			<result column="user_pwd" property="userPwd"/>
+			<result column="user_age" property="userAge"/>
+			<result column="user_sex" property="userSex"/>
+			<result column="reg_time" property="regTime"/>
+	</resultMap> -->
+
+	<insert id="addUser" parameterType="com.jim.library.user.doamin.UserBo" >
+		INSERT INTO user(user_name,user_pwd,user_age,user_sex,reg_time)
+		VALUES
+		(#{user.userName},#{user.userPwd},#{user.userAge},#{user.userSex},#{user.regTime})
+	</insert>
+
+	<select id="findUserByName" parameterType="com.jim.library.user.doamin.UserBo" resultType="com.jim.library.user.entity.User">
+		SELECT
+			user_id userId,
+			user_name userName,
+			user_pwd userPwd,
+			user_age userAge,
+			user_sex userSex,
+			reg_time regTime
+		FROM
+			USER
+		WHERE 
+			user.user_name=#{user.userName}
+	</select>
+	
+	<select id="findUserByID" parameterType="com.jim.library.user.doamin.UserBo" resultType="com.jim.library.user.doamin.UserBo">
+		SELECT
+			user_id userId,
+			user_name userName,
+			user_pwd userPwd,
+			user_age userAge,
+			user_sex userSex,
+			reg_time regTime
+		FROM
+			USER
+		WHERE 
+			user.user_id=#{user.userId}
+	</select>	
+	
+	<delete id="deleteUser" parameterType="com.jim.library.user.doamin.UserBo">
+		DELETE FROM user WHERE user.user_name=#{user.userName}
+	</delete>
+
+
+</mapper>

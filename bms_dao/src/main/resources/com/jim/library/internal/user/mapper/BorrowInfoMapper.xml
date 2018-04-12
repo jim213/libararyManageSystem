@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jim.library.internal.user.mapper.BorrowInfoMapper" >
+
+	<sql id="update_borrowInfo_set">
+		<if test="borrowInfo!=null">
+			<if test="borrowInfo.returnTime!=null">
+   				return_time=#{borrowInfo.returnTime},
+   			</if>
+		</if>
+	</sql>
+	
+<!-- 	<resultMap type="com.jim.library.user.doamin.BorrowInfoBo" id="borrowInfoBoResultMap">
+		<association property="borrowInfo" javaType="com.jim.library.user.entity.BorrowInfo">
+			<id column="borrowinfo_number" property="borrowinfoNumber"/>
+			<result column="user_id" property="userId"/>
+			<result column="book_ISBN" property="bookISBN"/>
+			<result column="borrow_time" property="borrowTime"/>
+			<result column="return_deadline" property="returnDeadline"/>
+			<result column="return_time" property="returnTime"/>
+		</association>
+	</resultMap> -->
+	
+	<insert id="addRecord" parameterType="com.jim.library.user.doamin.BorrowInfoBo" >
+		INSERT INTO borrowinfo(user_id,book_ISBN,borrow_time,return_deadline,return_time)
+		VALUES
+		(#{userBo.user.userId},#{bookQueryBo.book.bookISBN},#{borrowInfo.borrowTime},#{borrowInfo.returnDeadline},#{borrowInfo.returnTime})
+	</insert>
+	
+	<select id="findRecord" parameterType="com.jim.library.user.doamin.BorrowInfoBo" resultType="com.jim.library.user.doamin.BorrowInfoBo">
+		SELECT
+			borrowinfo_number borrowInfoNumber,
+			user_id userId,
+			book_ISBN bookISBN,
+			borrow_time borrowTime,
+			return_deadline returnDeadline,
+			return_time returnTime
+		FROM
+			borrowinfo
+		WHERE
+			user_id=#{borrowInfo.userId} AND book_ISBN=#{borrowInfo.bookISBN} AND return_time IS NULL
+	</select>
+	
+	<update id="updateRecord" parameterType="com.jim.library.user.doamin.BorrowInfoBo">
+		UPDATE borrowInfo 
+		<set>
+			<include refid="update_borrowInfo_set"></include>
+		</set>
+		WHERE borrowinfo_number=#{borrowInfo.borrowInfoNumber}
+	</update>
+	
+</mapper>
